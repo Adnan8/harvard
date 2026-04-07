@@ -18,7 +18,7 @@
     --serif:        'Libre Baskerville', Georgia, 'Times New Roman', serif;
     --sans:         'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     --transition:   0.25s ease;
-    --header-h:     64px;
+    --header-h:     76px;
 }
 
 /* --- Reset --- */
@@ -78,30 +78,30 @@ button { cursor: pointer; font-family: var(--sans); }
 .logo-link {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
     flex-shrink: 0;
-    padding: 0 20px 0 24px;
+    padding: 0 24px 0 28px;
 }
-.harvard-shield { height: 40px; width: auto; }
+.harvard-shield { height: 52px; width: auto; }
 .logo-text {
     display: flex;
     flex-direction: column;
-    line-height: 1.15;
+    line-height: 1.2;
 }
 .logo-top {
     font-family: var(--serif);
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--white);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
 }
 .logo-bottom {
     font-family: var(--sans);
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     font-weight: 400;
     color: rgba(255,255,255,0.75);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
 }
 
@@ -144,49 +144,51 @@ button { cursor: pointer; font-family: var(--sans); }
 }
 .alert-close-x:hover { color: white; }
 
-/* ── Header action buttons ── */
+/* ── Header action buttons — solid dark block like Harvard ── */
 .header-actions {
     display: flex;
     height: 100%;
     align-items: stretch;
     flex-shrink: 0;
+    background: rgba(0,0,0,0.82);
 }
 .btn-search {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0 22px;
-    background: rgba(0,0,0,0.55);
+    padding: 0 26px;
+    background: transparent;
     border: none;
-    border-left: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(255,255,255,0.12);
     color: var(--white);
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-family: var(--sans);
     font-weight: 400;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     cursor: pointer;
     transition: background 0.2s;
     height: 100%;
 }
-.btn-search:hover { background: rgba(0,0,0,0.75); }
+.btn-search svg { width: 18px; height: 18px; }
+.btn-search:hover { background: rgba(255,255,255,0.08); }
 
 .btn-menu {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0 24px;
+    padding: 0 26px;
     background: transparent;
     border: none;
-    border-left: 1px solid rgba(255,255,255,0.1);
     color: var(--white);
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-family: var(--sans);
     font-weight: 400;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     cursor: pointer;
     transition: background 0.2s;
     height: 100%;
 }
+.btn-menu svg { width: 18px; height: 18px; }
 .btn-menu:hover, .btn-menu.active { background: rgba(255,255,255,0.08); }
 
 /* ============================================
@@ -489,7 +491,7 @@ button { cursor: pointer; font-family: var(--sans); }
 .nav-subpanel-heading:hover { color: rgba(255,255,255,0.75); }
 .nav-subpanel-desc {
     font-size: 0.92rem;
-    color: rgba(255,255,255,0.58);
+    color: rgba(255,255,255,0.78);
     line-height: 1.65;
     margin-bottom: 28px;
     max-width: 440px;
@@ -507,7 +509,7 @@ button { cursor: pointer; font-family: var(--sans); }
 }
 .nav-subpanel-list li a {
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.68);
+    color: rgba(255,255,255,0.88);
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -532,7 +534,7 @@ button { cursor: pointer; font-family: var(--sans); }
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 700;
-    color: rgba(255,255,255,0.68);
+    color: rgba(255,255,255,0.88);
     display: inline-flex;
     align-items: center;
     gap: 6px;
