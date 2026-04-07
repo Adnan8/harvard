@@ -19,10 +19,71 @@
     const primaryItems  = document.querySelectorAll('.nav-primary-item');
     const primaryList   = document.querySelector('.nav-primary-list');
     const subPanels     = document.querySelectorAll('.nav-subpanel');
+    const navBg         = document.getElementById('navBg');
+    const navTertiary   = document.getElementById('navTertiary');
 
-    let menuOpen   = false;
-    let searchOpen = false;
+    let menuOpen    = false;
+    let searchOpen  = false;
     let activePanel = null;
+    let activeSub   = null;
+
+    /* ─── Background images per section ─────────── */
+    const bgImages = {
+        academics: 'https://www.harvard.edu/wp-content/uploads/2020/11/042318_Eggan_017.jpg',
+        campus:    'https://www.harvard.edu/wp-content/uploads/2021/03/100408_Yard_045-scaled.jpg',
+        infocus:   'https://www.harvard.edu/wp-content/uploads/2026/03/AdobeStock_191602076.jpg',
+        visit:     'https://www.harvard.edu/wp-content/uploads/2021/03/100408_Yard_045-scaled.jpg',
+        about:     'https://www.harvard.edu/wp-content/uploads/2023/11/110823_Features_KS_713-scaled.jpg',
+        news:      'https://www.harvard.edu/wp-content/uploads/2026/03/news-treatments-doc-check-in.jpg',
+    };
+
+    /* ─── Tertiary (3rd-level) data ─────────────── */
+    const tertiaryData = {
+        'degree-programs': {
+            title: 'Degree programs',
+            desc:  'Browse all of our undergraduate concentrations and graduate degrees.',
+            items: ['Undergraduate Degrees', 'Graduate Degrees', 'Other'],
+        },
+        'harvard-schools': {
+            title: 'Harvard Schools',
+            desc:  '',
+            items: [
+                'Harvard College', 'Graduate School of Arts & Sciences',
+                'Harvard Business School', 'Harvard Divinity School',
+                'Harvard Extension School', 'Harvard Graduate School of Design',
+                'Harvard Graduate School of Education', 'Harvard Kennedy School',
+                'Harvard Law School', 'Harvard Medical School',
+                'Harvard School of Dental Medicine',
+                'Harvard T.H. Chan School of Public Health',
+                'Radcliffe Institute for Advanced Study',
+            ],
+        },
+        libraries: {
+            title: 'Explore our libraries',
+            desc:  '',
+            items: [
+                'Arnold Arboretum Horticultural Library',
+                'Baker Library and Special Collections',
+                'Biblioteca Berenson', 'Botany Libraries',
+                'Cabot Science Library', 'Countway Library',
+                'Dumbarton Oaks Research Library',
+                'Ernst Mayr Library of the MCZ',
+                'Fine Arts Library', 'Harvard Law School Library',
+                'Lamont Library', 'Loeb Music Library', 'Widener Library',
+            ],
+        },
+        museums: {
+            title: 'Harvard Museums',
+            desc:  '',
+            items: [
+                'Harvard Art Museums',
+                'Harvard Museum of Natural History',
+                'Peabody Museum of Archaeology & Ethnology',
+                'Collection of Historical Scientific Instruments',
+                'Semitic Museum',
+            ],
+        },
+    };
 
     /* ═══════════════════════════════════════════
        PARTICLE CANVAS BACKGROUND
@@ -118,6 +179,71 @@
        ═══════════════════════════════════════════ */
     function isMobile() { return window.innerWidth <= 640; }
 
+    /* ── Background switching ── */
+    function setBg(panelId) {
+        if (!navBg) return;
+        const url = bgImages[panelId];
+        if (url) {
+            navBg.style.backgroundImage = `url('${url}')`;
+            navBg.classList.add('has-image');
+        } else {
+            navBg.classList.remove('has-image');
+        }
+    }
+
+    /* ── Tertiary panel ── */
+    function openTertiary(subId) {
+        const data = tertiaryData[subId];
+        if (!data || !navTertiary) return;
+        activeSub = subId;
+
+        const dotSvg = `<span class="nav-tertiary-dot"></span>`;
+        const itemsHtml = data.items.map(label =>
+            `<li><a href="#">${dotSvg} ${label}</a></li>`
+        ).join('');
+
+        navTertiary.innerHTML = `
+            ${data.title ? `<p class="nav-tertiary-title">${data.title}</p>` : ''}
+            ${data.desc  ? `<p class="nav-tertiary-desc">${data.desc}</p>`   : ''}
+            <ul class="nav-tertiary-list">${itemsHtml}</ul>
+        `;
+        navTertiary.classList.add('open');
+        navTertiary.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeTertiary() {
+        activeSub = null;
+        if (!navTertiary) return;
+        navTertiary.classList.remove('open');
+        navTertiary.setAttribute('aria-hidden', 'true');
+        // Mark all sub-expandables inactive
+        document.querySelectorAll('.nav-sub-expandable').forEach(el => el.classList.remove('active'));
+    }
+
+    function attachSubExpandListeners() {
+        document.querySelectorAll('.nav-sub-expandable').forEach(item => {
+            const subId = item.dataset.subId;
+            const btn   = item.querySelector('.nav-sub-expand-btn');
+            if (!btn) return;
+
+            const activate = () => {
+                document.querySelectorAll('.nav-sub-expandable').forEach(el => el.classList.remove('active'));
+                item.classList.add('active');
+                openTertiary(subId);
+            };
+
+            btn.addEventListener('click', () => {
+                if (activeSub === subId) { closeTertiary(); }
+                else { activate(); }
+            });
+            // Hover on desktop
+            item.addEventListener('mouseenter', () => {
+                if (!isMobile()) activate();
+            });
+        });
+    }
+
+    /* ── Mobile inline accordion ── */
     function removeInlinePanels() {
         document.querySelectorAll('.nav-subpanel-inline').forEach(el => el.remove());
     }
@@ -132,11 +258,18 @@
         wrapper.className = 'nav-subpanel-inline';
         wrapper.innerHTML = inner.innerHTML;
         item.appendChild(wrapper);
+        // Re-attach sub-expand listeners inside inline panels
+        attachSubExpandListeners();
     }
 
     function setActivePanel(panelId) {
         activePanel = panelId;
         const mobile = isMobile();
+
+        // Update background
+        setBg(panelId);
+        // Close tertiary when switching main panel
+        closeTertiary();
 
         primaryItems.forEach(item => {
             const isActive = item.dataset.panel === panelId;
@@ -144,7 +277,6 @@
             item.querySelector('.nav-primary-btn').setAttribute('aria-expanded', String(isActive));
 
             if (mobile) {
-                // Remove stale inline panels from non-active items
                 if (!isActive) {
                     const old = item.querySelector('.nav-subpanel-inline');
                     if (old) old.remove();
@@ -156,17 +288,25 @@
 
         primaryList.classList.toggle('has-active', !!panelId);
 
-        // Desktop: show right-side subpanel
         if (!mobile) {
             subPanels.forEach(panel => {
                 panel.classList.toggle('active', panel.id === `panel-${panelId}`);
             });
+            // Auto-open first expandable sub-item on desktop
+            const firstSub = document.querySelector(`#panel-${panelId} .nav-sub-expandable`);
+            if (firstSub) {
+                const subId = firstSub.dataset.subId;
+                firstSub.classList.add('active');
+                openTertiary(subId);
+            }
         }
     }
 
     function clearActivePanel() {
         activePanel = null;
         removeInlinePanels();
+        closeTertiary();
+        setBg(null);
         primaryItems.forEach(item => {
             item.classList.remove('active');
             item.querySelector('.nav-primary-btn').setAttribute('aria-expanded', 'false');
@@ -181,18 +321,17 @@
         const panelId = item.dataset.panel;
 
         btn.addEventListener('click', () => {
-            if (activePanel === panelId) {
-                clearActivePanel();
-            } else {
-                setActivePanel(panelId);
-            }
+            if (activePanel === panelId) { clearActivePanel(); }
+            else { setActivePanel(panelId); }
         });
 
-        // Mouse enter only on desktop
         item.addEventListener('mouseenter', () => {
             if (!isMobile()) setActivePanel(panelId);
         });
     });
+
+    // Attach sub-expand listeners (desktop panels)
+    attachSubExpandListeners();
 
     /* ═══════════════════════════════════════════
        OPEN / CLOSE MENU

@@ -101,37 +101,37 @@
             <!-- Left: primary nav items -->
             <nav class="nav-primary" aria-label="Primary navigation">
                 <ul class="nav-primary-list">
-                    <li class="nav-primary-item" data-panel="academics">
+                    <li class="nav-primary-item" data-panel="academics" data-bg="academics">
                         <button class="nav-primary-btn" aria-expanded="false">
                             <span class="nav-primary-text">Academics</span>
                             <span class="nav-primary-dot"></span>
                         </button>
                     </li>
-                    <li class="nav-primary-item" data-panel="campus">
+                    <li class="nav-primary-item" data-panel="campus" data-bg="campus">
                         <button class="nav-primary-btn" aria-expanded="false">
                             <span class="nav-primary-text">Campus</span>
                             <span class="nav-primary-dot"></span>
                         </button>
                     </li>
-                    <li class="nav-primary-item" data-panel="infocus">
+                    <li class="nav-primary-item" data-panel="infocus" data-bg="infocus">
                         <button class="nav-primary-btn" aria-expanded="false">
                             <span class="nav-primary-text">In Focus</span>
                             <span class="nav-primary-dot"></span>
                         </button>
                     </li>
-                    <li class="nav-primary-item" data-panel="visit">
+                    <li class="nav-primary-item" data-panel="visit" data-bg="visit">
                         <button class="nav-primary-btn" aria-expanded="false">
                             <span class="nav-primary-text">Visit</span>
                             <span class="nav-primary-dot"></span>
                         </button>
                     </li>
-                    <li class="nav-primary-item" data-panel="about">
+                    <li class="nav-primary-item" data-panel="about" data-bg="about">
                         <button class="nav-primary-btn" aria-expanded="false">
                             <span class="nav-primary-text">About</span>
                             <span class="nav-primary-dot"></span>
                         </button>
                     </li>
-                    <li class="nav-primary-item" data-panel="news">
+                    <li class="nav-primary-item" data-panel="news" data-bg="news">
                         <button class="nav-primary-btn" aria-expanded="false">
                             <span class="nav-primary-text">News</span>
                             <span class="nav-primary-dot"></span>
@@ -147,44 +147,35 @@
                 <div class="nav-subpanel" id="panel-academics">
                     <div class="nav-subpanel-inner">
                         <a href="#" class="nav-subpanel-heading">Academics <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-                        <p class="nav-subpanel-desc">Explore Harvard's world-class degree programs, professional learning, and the 15 schools and institutes that make up the University.</p>
-                        <div class="nav-subpanel-cols">
-                            <ul class="nav-subpanel-list">
-                                <li><a href="#">Degree Programs</a></li>
-                                <li><a href="#">Professional &amp; Lifelong Learning</a></li>
-                                <li><a href="#">Harvard Online</a></li>
-                            </ul>
-                            <ul class="nav-subpanel-list">
-                                <li class="list-label">Schools &amp; Institutes</li>
-                                <li><a href="#">Harvard College</a></li>
-                                <li><a href="#">Graduate School of Arts &amp; Sciences</a></li>
-                                <li><a href="#">Harvard Business School</a></li>
-                                <li><a href="#">Harvard Divinity School</a></li>
-                                <li><a href="#">Harvard Extension School</a></li>
-                                <li><a href="#">Harvard Graduate School of Design</a></li>
-                                <li><a href="#">Harvard Graduate School of Education</a></li>
-                                <li><a href="#">Harvard Kennedy School</a></li>
-                                <li><a href="#">Harvard Law School</a></li>
-                                <li><a href="#">Harvard Medical School</a></li>
-                                <li><a href="#">Harvard School of Dental Medicine</a></li>
-                                <li><a href="#">Harvard T.H. Chan School of Public Health</a></li>
-                                <li><a href="#">Radcliffe Institute for Advanced Study</a></li>
-                            </ul>
-                        </div>
+                        <p class="nav-subpanel-desc">Learning at Harvard can happen for every type of learner, at any phase of life.</p>
+                        <ul class="nav-subpanel-list">
+                            <li class="nav-sub-expandable" data-sub-id="degree-programs">
+                                <button class="nav-sub-expand-btn">Degree programs <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+                            </li>
+                            <li><a href="#">Professional and Lifelong Learning</a></li>
+                            <li><a href="#">Harvard Online</a></li>
+                            <li class="nav-sub-expandable" data-sub-id="harvard-schools">
+                                <button class="nav-sub-expand-btn">Harvard Schools <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
                 <!-- Campus -->
                 <div class="nav-subpanel" id="panel-campus">
                     <div class="nav-subpanel-inner">
-                        <a href="#" class="nav-subpanel-heading">Campus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-                        <p class="nav-subpanel-desc">Discover what Harvard's campus has to offer — from world-renowned libraries and museums to athletics, events, and community.</p>
+                        <a href="#" class="nav-subpanel-heading">Harvard's Campus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">Get tickets to our next game, hours and locations for our libraries and museums, and information about your next career move.</p>
                         <ul class="nav-subpanel-list">
-                            <li><a href="#">Libraries</a></li>
-                            <li><a href="#">Museums &amp; Cultural Institutions</a></li>
+                            <li class="nav-sub-expandable" data-sub-id="libraries">
+                                <button class="nav-sub-expand-btn">Libraries <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+                            </li>
+                            <li class="nav-sub-expandable" data-sub-id="museums">
+                                <button class="nav-sub-expand-btn">Museums <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+                            </li>
                             <li><a href="#">Athletics</a></li>
                             <li><a href="#">Work at Harvard</a></li>
-                            <li><a href="#">Belonging at Harvard</a></li>
+                            <li><a href="#">Belonging</a></li>
                             <li><a href="#">Events</a></li>
                             <li><a href="#">Commencement</a></li>
                         </ul>
@@ -248,6 +239,10 @@
                 </div>
 
             </div><!-- /nav-subpanels -->
+
+            <!-- Tertiary panel: 3rd level (shown on sub-item hover) -->
+            <div class="nav-tertiary" id="navTertiary" aria-hidden="true"></div>
+
         </div><!-- /nav-body -->
 
         <!-- Bottom Quick Links bar -->
