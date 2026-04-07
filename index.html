@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health | Harvard University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header (alert inline + transparent overlay) -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+
+            <!-- Logo -->
+            <a href="#" class="logo-link">
+                <svg class="harvard-shield" viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 2 L58 14 L58 44 Q58 60 30 70 Q2 60 2 44 L2 14 Z" fill="#A51C30"/>
+                    <text x="30" y="28" fill="white" font-size="14" font-family="serif" font-weight="bold" text-anchor="middle">VE</text>
+                    <text x="30" y="44" fill="white" font-size="14" font-family="serif" font-weight="bold" text-anchor="middle">RI</text>
+                    <text x="30" y="57" fill="white" font-size="7" font-family="serif" text-anchor="middle">TAS</text>
+                </svg>
+                <div class="logo-text">
+                    <span class="logo-top">HARVARD</span>
+                    <span class="logo-bottom">UNIVERSITY</span>
+                </div>
+            </a>
+
+            <!-- Alert inline (center) -->
+            <div class="header-alert" id="headerAlert">
+                <span class="alert-dot"></span>
+                <a href="#" class="alert-link">Learn about our lawsuits to protect our students and researchers</a>
+                <button class="alert-close-x" onclick="document.getElementById('headerAlert').style.visibility='hidden'" aria-label="Dismiss">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+
+            <!-- Actions (right) -->
+            <div class="header-actions">
+                <button class="btn-search" id="btnSearch" aria-label="Search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span>Search</span>
+                </button>
+                <button class="btn-menu" id="btnMenu" aria-label="Menu">
+                    <svg class="icon-hamburger" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    <svg class="icon-close" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    <span id="menuLabel">Menu</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-inner">
+            <form class="search-form" onsubmit="return false;">
+                <input type="text" class="search-input" placeholder="Search Harvard.edu" autofocus>
+                <button type="submit" class="search-submit">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+            </form>
+            <div class="search-quick-links">
+                <span>Quick links:</span>
+                <a href="#">A-Z Index</a>
+                <a href="#">Find a Person</a>
+                <a href="#">Events</a>
+                <a href="#">Media Relations</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+        <!-- Particle canvas background -->
+        <canvas id="navCanvas" class="nav-canvas"></canvas>
+
+        <!-- Top bar: logo + close -->
+        <div class="nav-topbar">
+            <a href="#" class="nav-logo-link">
+                <svg class="nav-shield" viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 2 L58 14 L58 44 Q58 60 30 70 Q2 60 2 44 L2 14 Z" fill="#A51C30"/>
+                    <text x="30" y="28" fill="white" font-size="15" font-family="serif" font-weight="bold" text-anchor="middle">VE</text>
+                    <text x="30" y="44" fill="white" font-size="15" font-family="serif" font-weight="bold" text-anchor="middle">RI</text>
+                    <text x="30" y="58" fill="white" font-size="7" font-family="serif" text-anchor="middle">TAS</text>
+                </svg>
+                <span class="nav-logo-name">Harvard University</span>
+            </a>
+            <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+                Close
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </button>
+        </div>
+
+        <!-- Main nav body: left items + right panel -->
+        <div class="nav-body">
+            <!-- Left: primary nav items -->
+            <nav class="nav-primary" aria-label="Primary navigation">
+                <ul class="nav-primary-list">
+                    <li class="nav-primary-item" data-panel="academics">
+                        <button class="nav-primary-btn" aria-expanded="false">
+                            <span class="nav-primary-text">Academics</span>
+                            <span class="nav-primary-dot"></span>
+                        </button>
+                    </li>
+                    <li class="nav-primary-item" data-panel="campus">
+                        <button class="nav-primary-btn" aria-expanded="false">
+                            <span class="nav-primary-text">Campus</span>
+                            <span class="nav-primary-dot"></span>
+                        </button>
+                    </li>
+                    <li class="nav-primary-item" data-panel="infocus">
+                        <button class="nav-primary-btn" aria-expanded="false">
+                            <span class="nav-primary-text">In Focus</span>
+                            <span class="nav-primary-dot"></span>
+                        </button>
+                    </li>
+                    <li class="nav-primary-item" data-panel="visit">
+                        <button class="nav-primary-btn" aria-expanded="false">
+                            <span class="nav-primary-text">Visit</span>
+                            <span class="nav-primary-dot"></span>
+                        </button>
+                    </li>
+                    <li class="nav-primary-item" data-panel="about">
+                        <button class="nav-primary-btn" aria-expanded="false">
+                            <span class="nav-primary-text">About</span>
+                            <span class="nav-primary-dot"></span>
+                        </button>
+                    </li>
+                    <li class="nav-primary-item" data-panel="news">
+                        <button class="nav-primary-btn" aria-expanded="false">
+                            <span class="nav-primary-text">News</span>
+                            <span class="nav-primary-dot"></span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right: sub-panels -->
+            <div class="nav-subpanels">
+
+                <!-- Academics -->
+                <div class="nav-subpanel" id="panel-academics">
+                    <div class="nav-subpanel-inner">
+                        <a href="#" class="nav-subpanel-heading">Academics <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">Explore Harvard's world-class degree programs, professional learning, and the 15 schools and institutes that make up the University.</p>
+                        <div class="nav-subpanel-cols">
+                            <ul class="nav-subpanel-list">
+                                <li><a href="#">Degree Programs</a></li>
+                                <li><a href="#">Professional &amp; Lifelong Learning</a></li>
+                                <li><a href="#">Harvard Online</a></li>
+                            </ul>
+                            <ul class="nav-subpanel-list">
+                                <li class="list-label">Schools &amp; Institutes</li>
+                                <li><a href="#">Harvard College</a></li>
+                                <li><a href="#">Graduate School of Arts &amp; Sciences</a></li>
+                                <li><a href="#">Harvard Business School</a></li>
+                                <li><a href="#">Harvard Divinity School</a></li>
+                                <li><a href="#">Harvard Extension School</a></li>
+                                <li><a href="#">Harvard Graduate School of Design</a></li>
+                                <li><a href="#">Harvard Graduate School of Education</a></li>
+                                <li><a href="#">Harvard Kennedy School</a></li>
+                                <li><a href="#">Harvard Law School</a></li>
+                                <li><a href="#">Harvard Medical School</a></li>
+                                <li><a href="#">Harvard School of Dental Medicine</a></li>
+                                <li><a href="#">Harvard T.H. Chan School of Public Health</a></li>
+                                <li><a href="#">Radcliffe Institute for Advanced Study</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campus -->
+                <div class="nav-subpanel" id="panel-campus">
+                    <div class="nav-subpanel-inner">
+                        <a href="#" class="nav-subpanel-heading">Campus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">Discover what Harvard's campus has to offer — from world-renowned libraries and museums to athletics, events, and community.</p>
+                        <ul class="nav-subpanel-list">
+                            <li><a href="#">Libraries</a></li>
+                            <li><a href="#">Museums &amp; Cultural Institutions</a></li>
+                            <li><a href="#">Athletics</a></li>
+                            <li><a href="#">Work at Harvard</a></li>
+                            <li><a href="#">Belonging at Harvard</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Commencement</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- In Focus -->
+                <div class="nav-subpanel" id="panel-infocus">
+                    <div class="nav-subpanel-inner">
+                        <a href="#" class="nav-subpanel-heading">In Focus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">Explore a curated examination of Harvard's research, scholarly work, and community. Recent topics include:</p>
+                        <ul class="nav-subpanel-list nav-subpanel-list--large">
+                            <li><a href="#">Mental Health <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+                            <li><a href="#">Artificial Intelligence <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+                            <li><a href="#">Immunology <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Visit -->
+                <div class="nav-subpanel" id="panel-visit">
+                    <div class="nav-subpanel-inner">
+                        <a href="#" class="nav-subpanel-heading">Visit <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">Plan your visit to Harvard's historic campus in Cambridge, Massachusetts.</p>
+                        <ul class="nav-subpanel-list">
+                            <li><a href="#">Tours</a></li>
+                            <li><a href="#">Maps &amp; Directions</a></li>
+                            <li><a href="#">Tour Providers</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="nav-subpanel" id="panel-about">
+                    <div class="nav-subpanel-inner">
+                        <a href="#" class="nav-subpanel-heading">About <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">Learn about Harvard's history, leadership, and the values and mission that guide one of the world's leading universities.</p>
+                        <ul class="nav-subpanel-list">
+                            <li><a href="#">History</a></li>
+                            <li><a href="#">Leadership</a></li>
+                            <li><a href="#">University Professorships</a></li>
+                            <li><a href="#">Endowment</a></li>
+                            <li><a href="#">Community Engagement</a></li>
+                            <li><a href="#">Global Presence</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- News -->
+                <div class="nav-subpanel" id="panel-news">
+                    <div class="nav-subpanel-inner">
+                        <a href="#" class="nav-subpanel-heading">News <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                        <p class="nav-subpanel-desc">The latest news, research, and stories from across Harvard, brought to you by the Harvard Gazette.</p>
+                        <ul class="nav-subpanel-list">
+                            <li><a href="#">Harvard Gazette</a></li>
+                            <li><a href="#">Trending Stories</a></li>
+                            <li><a href="#">Sign up for the Daily Digest</a></li>
+                            <li><a href="#">Media Relations</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div><!-- /nav-subpanels -->
+        </div><!-- /nav-body -->
+
+        <!-- Bottom Quick Links bar -->
+        <div class="nav-quickbar">
+            <div class="nav-quickbar-inner">
+                <span class="nav-quickbar-label">Quick Links
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+                <div class="nav-quickbar-links">
+                    <a href="#">A to Z index</a>
+                    <a href="#">Find a person</a>
+                    <a href="#">Events</a>
+                    <a href="#">Media Relations</a>
+                    <a href="#">Alumni</a>
+                    <a href="#">Give Now</a>
+                    <a href="#">Emergency</a>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /nav-overlay -->
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-photo"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">In Focus</p>
+            <h1 class="hero-title">Mental Health</h1>
+            <p class="hero-desc">Across Harvard, researchers and scholars are working to better understand the full scope of mental health, including what causes disorders and how to best implement preventions and treatments.</p>
+        </div>
+        <div class="hero-scroll-hint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+    </section>
+
+    <!-- Overview / Stats Section -->
+    <section class="section-overview">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-white">An overview</h2>
+                <p class="section-lead text-white-muted">In addressing the global mental health crisis, it's important to understand the full scope of the problem so experts can properly provide care and support.</p>
+            </div>
+            <div class="section-divider divider-white"></div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number">50%</div>
+                    <p class="stat-desc">of the world's population will experience a mental health disorder <a href="#" class="stat-src">(Source)</a></p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1 in 5</div>
+                    <p class="stat-desc">people under 18 experience a mental illness each year <a href="#" class="stat-src">(Source)</a></p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">11 years</div>
+                    <p class="stat-desc">is the average delay between onset of mental health symptoms and treatment <a href="#" class="stat-src">(Source)</a></p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">35%</div>
+                    <p class="stat-desc">increase in suicide rates over the past two decades <a href="#" class="stat-src">(Source)</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Treatment Section -->
+    <section class="section-treatment">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-dark">Let's talk treatment</h2>
+                <p class="section-lead text-dark-muted">Researchers and physicians at Harvard are working to improve diagnostic methods, medical treatments, and access to care to move mental health care forward.</p>
+            </div>
+            <div class="section-divider divider-dark"></div>
+
+            <div class="treatment-grid">
+                <div class="treatment-main">
+                    <div class="treatment-main-img" style="background: linear-gradient(160deg, #b0c4de 0%, #778899 100%);"></div>
+                    <h3 class="treatment-main-title">Normalizing mental health check-ups</h3>
+                    <p class="treatment-main-desc">Promoting a proactive approach to mental health can help catch problematic symptoms early on.</p>
+                    <a href="#" class="read-more">Read more →</a>
+                </div>
+                <div class="treatment-list">
+                    <a href="#" class="treatment-list-item">
+                        <div class="treatment-list-text">Seeking solutions for bipolar disorder</div>
+                        <div class="treatment-list-thumb" style="background: linear-gradient(135deg, #4a4a6a, #2c2c4a);"></div>
+                    </a>
+                    <a href="#" class="treatment-list-item">
+                        <div class="treatment-list-text">Creating a drug discovery platform for mental health conditions</div>
+                        <div class="treatment-list-thumb" style="background: linear-gradient(135deg, #6a2c6a, #4a1a4a);"></div>
+                    </a>
+                    <a href="#" class="treatment-list-item">
+                        <div class="treatment-list-text">Using a machine-learning tool for assessing suicide risk in patients</div>
+                        <div class="treatment-list-thumb" style="background: linear-gradient(135deg, #2c5c2c, #1a3c1a);"></div>
+                    </a>
+                    <a href="#" class="treatment-list-item">
+                        <div class="treatment-list-text">Diagnosing psychiatric disorders through genetic testing</div>
+                        <div class="treatment-list-thumb" style="background: linear-gradient(135deg, #c0603a, #8c3c20);"></div>
+                    </a>
+                    <a href="#" class="treatment-list-item">
+                        <div class="treatment-list-text">Treating drug-resistant depression with TMS</div>
+                        <div class="treatment-list-thumb" style="background: linear-gradient(135deg, #2c4a8c, #1a2c5c);"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Just Start Section -->
+    <section class="section-just-start">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-white">Just start</h2>
+                <div class="section-lead-block">
+                    <p class="section-lead text-white-muted">Supporting and maintaining your mental health is a lifelong practice and can often require professional assistance, but creating positive habits that have a lasting impact can start at any time.</p>
+                    <a href="#" class="cta-arrow-link text-white">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        Learn more about building personal resilience
+                    </a>
+                </div>
+            </div>
+            <div class="section-divider divider-white"></div>
+            <div class="habits-grid">
+                <div class="habit-card">
+                    <div class="habit-img" style="background: linear-gradient(160deg, #2d4a2d 0%, #1a3a1a 100%);">
+                        <div class="habit-icon">🚶</div>
+                    </div>
+                    <div class="habit-body">
+                        <h3 class="habit-title">Walk</h3>
+                        <p class="habit-desc">Spending time in natural environments can lower biomarkers for stress and reduce cycles of negative thoughts.</p>
+                        <a href="#" class="habit-link">Read the research →</a>
+                    </div>
+                </div>
+                <div class="habit-card">
+                    <div class="habit-img" style="background: linear-gradient(160deg, #4a2d2d 0%, #3a1a1a 100%);">
+                        <div class="habit-icon">🥗</div>
+                    </div>
+                    <div class="habit-body">
+                        <h3 class="habit-title">Eat</h3>
+                        <p class="habit-desc">Eating an orange a day may lower a person's depression risk by 20%, according to new research.</p>
+                        <a href="#" class="habit-link">Read the research →</a>
+                    </div>
+                </div>
+                <div class="habit-card">
+                    <div class="habit-img" style="background: linear-gradient(160deg, #1a2d4a 0%, #0d1a3a 100%);">
+                        <div class="habit-icon">🧘</div>
+                    </div>
+                    <div class="habit-body">
+                        <h3 class="habit-title">Breathe</h3>
+                        <p class="habit-desc">Meditating for five minutes a day, consistently for a month, has shown reductions in standardized measures of depression and anxiety.</p>
+                        <a href="#" class="habit-link">Read the research →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Youth and Mental Health -->
+    <section class="section-youth">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-dark">Youth and mental health</h2>
+                <p class="section-lead text-dark-muted">Children and young adults face unique mental health challenges. Harvard researchers are working to better understand and address these challenges.</p>
+            </div>
+            <div class="section-divider divider-dark"></div>
+            <div class="cards-grid-3">
+                <div class="content-card">
+                    <div class="content-card-img" style="background: linear-gradient(135deg, #c8b8a0 0%, #a09080 100%);"></div>
+                    <div class="content-card-body">
+                        <p class="content-card-tag">Harvard Medicine</p>
+                        <h4 class="content-card-title">Special issue on youth mental health crisis</h4>
+                        <p class="content-card-desc">Harvard Medicine magazine examines the growing challenges facing young people's mental wellbeing today.</p>
+                        <a href="#" class="content-card-link">Read more →</a>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="content-card-img" style="background: linear-gradient(135deg, #b8c8c0 0%, #809080 100%);"></div>
+                    <div class="content-card-body">
+                        <p class="content-card-tag">Research</p>
+                        <h4 class="content-card-title">Early development and independent play</h4>
+                        <p class="content-card-desc">Research into early childhood indicators — including teeth analysis — reveals links between development and future mental health.</p>
+                        <a href="#" class="content-card-link">Read more →</a>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="content-card-img" style="background: linear-gradient(135deg, #c0b8c8 0%, #9088a0 100%);"></div>
+                    <div class="content-card-body">
+                        <p class="content-card-tag">Education</p>
+                        <h4 class="content-card-title">The role of schools in mental health</h4>
+                        <p class="content-card-desc">Parent-child relationships and school environments play a critical role in shaping young people's mental health outcomes.</p>
+                        <a href="#" class="content-card-link">Read more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen Time Section -->
+    <section class="section-screen-time">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-white">Screen time</h2>
+                <p class="section-lead text-white-muted">As technology becomes ever more present in our lives, researchers are working to understand its impacts on mental health and what steps can be taken to mitigate harm.</p>
+            </div>
+            <div class="section-divider divider-white"></div>
+            <div class="cards-grid-3">
+                <div class="dark-card">
+                    <div class="dark-card-img" style="background: linear-gradient(135deg, #1a2a4a 0%, #0d1530 100%);"></div>
+                    <div class="dark-card-body">
+                        <h4 class="dark-card-title">AI use and depressive symptoms</h4>
+                        <p class="dark-card-desc">New research explores the association between AI tool usage and signs of depression among users.</p>
+                        <a href="#" class="dark-card-link">Read more →</a>
+                    </div>
+                </div>
+                <div class="dark-card">
+                    <div class="dark-card-img" style="background: linear-gradient(135deg, #2a1a4a 0%, #150d30 100%);"></div>
+                    <div class="dark-card-body">
+                        <h4 class="dark-card-title">Do mood-tracking apps actually work?</h4>
+                        <p class="dark-card-desc">Harvard researchers evaluate the effectiveness of popular mood-tracking apps in improving mental wellbeing.</p>
+                        <a href="#" class="dark-card-link">Read more →</a>
+                    </div>
+                </div>
+                <div class="dark-card">
+                    <div class="dark-card-img" style="background: linear-gradient(135deg, #4a1a2a 0%, #300d15 100%);"></div>
+                    <div class="dark-card-body">
+                        <h4 class="dark-card-title">Social media's duty of care</h4>
+                        <p class="dark-card-desc">Experts debate the responsibility social media platforms bear for the mental health of their users.</p>
+                        <a href="#" class="dark-card-link">Read more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work/Life Balance -->
+    <section class="section-worklife">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-dark">Work/life balance</h2>
+                <p class="section-lead text-dark-muted">We spend close to a third of our lives working. Researchers are working to understand how that impacts our mental health, and what we can do to improve that relationship.</p>
+            </div>
+            <div class="section-divider divider-dark"></div>
+            <div class="worklife-grid">
+                <div class="worklife-main">
+                    <div class="worklife-main-img" style="background: linear-gradient(160deg, #d4c4b0 0%, #b0a090 100%);"></div>
+                    <h3 class="worklife-main-title">Psychological safety at work is essential</h3>
+                    <p class="worklife-main-desc">A Harvard study found that workplaces where workers believed speaking up would not lead to embarrassment, rejection, or punishment had less incidence of employee burnout and less turnover.</p>
+                    <a href="#" class="read-more">Read more →</a>
+                </div>
+                <div class="worklife-list">
+                    <div class="worklife-item">
+                        <h4 class="worklife-item-title">Teachers</h4>
+                        <p class="worklife-item-desc">Why it's important that schools create space to acknowledge and respond to the stress of the job.</p>
+                        <a href="#" class="worklife-link">Read more →</a>
+                    </div>
+                    <div class="worklife-item">
+                        <h4 class="worklife-item-title">Executives</h4>
+                        <p class="worklife-item-desc">Why it's important for organizations to address mental health and how executives should handle pressure at the top.</p>
+                        <a href="#" class="worklife-link">Read more →</a>
+                    </div>
+                    <div class="worklife-item">
+                        <h4 class="worklife-item-title">Factory workers</h4>
+                        <p class="worklife-item-desc">Research shows that a one-size-fits-all approach to worker wellbeing initiatives aren't as effective as ones catered to workers' specific needs.</p>
+                        <a href="#" class="worklife-link">Read more →</a>
+                    </div>
+                    <div class="worklife-item">
+                        <h4 class="worklife-item-title">Doctors</h4>
+                        <p class="worklife-item-desc">Sharing stories of personal struggle can help doctors become better at their jobs.</p>
+                        <a href="#" class="worklife-link">Read more →</a>
+                    </div>
+                    <div class="worklife-item">
+                        <h4 class="worklife-item-title">Athletes</h4>
+                        <p class="worklife-item-desc">A study found that NFL players face an increased risk of suicide compared to basketball and baseball players.</p>
+                        <a href="#" class="worklife-link">Read more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delving Deeper -->
+    <section class="section-delving">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-dark">Delving deeper</h2>
+                <p class="section-lead text-dark-muted">Books, podcasts, and resources featuring Harvard faculty and experts exploring the science and experience of mental health.</p>
+            </div>
+            <div class="section-divider divider-dark"></div>
+            <div class="delving-grid">
+                <a href="#" class="delving-card">
+                    <div class="delving-card-img book-cover" style="background: linear-gradient(160deg, #8B2635 0%, #5a1520 100%);">
+                        <span class="book-label">BOOK</span>
+                    </div>
+                    <p class="delving-card-type">Book</p>
+                    <h4 class="delving-card-title">Build the Life You Want</h4>
+                    <p class="delving-card-author">Arthur C. Brooks &amp; Oprah Winfrey</p>
+                </a>
+                <a href="#" class="delving-card">
+                    <div class="delving-card-img book-cover" style="background: linear-gradient(160deg, #1b2d4a 0%, #0d1820 100%);">
+                        <span class="book-label">BOOK</span>
+                    </div>
+                    <p class="delving-card-type">Book</p>
+                    <h4 class="delving-card-title">Life Under Pressure</h4>
+                    <p class="delving-card-author">Suicide prevention guidance from Harvard experts</p>
+                </a>
+                <a href="#" class="delving-card">
+                    <div class="delving-card-img book-cover" style="background: linear-gradient(160deg, #2d4a2d 0%, #181a10 100%);">
+                        <span class="book-label">BOOK</span>
+                    </div>
+                    <p class="delving-card-type">Book</p>
+                    <h4 class="delving-card-title">Never Enough: Mattering</h4>
+                    <p class="delving-card-author">Jennifer Breheny Wallace</p>
+                </a>
+                <a href="#" class="delving-card">
+                    <div class="delving-card-img podcast-cover" style="background: linear-gradient(160deg, #3a2a4a 0%, #1d1528 100%);">
+                        <span class="book-label">PODCAST</span>
+                    </div>
+                    <p class="delving-card-type">Podcast</p>
+                    <h4 class="delving-card-title">Trauma, resilience, and the path forward</h4>
+                    <p class="delving-card-author">Harvard Chan School</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- On Our Campus -->
+    <section class="section-campus">
+        <div class="container">
+            <div class="section-header-row">
+                <h2 class="section-heading text-dark">On our campus</h2>
+                <p class="section-lead text-dark-muted">Harvard's schools, centers, and programs are actively engaged in supporting the mental health and wellbeing of students, faculty, and staff.</p>
+            </div>
+            <div class="section-divider divider-dark"></div>
+            <div class="campus-grid">
+                <a href="#" class="campus-card">
+                    <div class="campus-card-img" style="background: linear-gradient(160deg, #c0a080 0%, #907060 100%);"></div>
+                    <div class="campus-card-body">
+                        <h4 class="campus-card-title">Supporting wellbeing and mental health services</h4>
+                        <p class="campus-card-school">Harvard University Health Services</p>
+                    </div>
+                </a>
+                <a href="#" class="campus-card">
+                    <div class="campus-card-img" style="background: linear-gradient(160deg, #a0b0c0 0%, #708090 100%);"></div>
+                    <div class="campus-card-body">
+                        <h4 class="campus-card-title">American Repertory Theater audience support resources</h4>
+                        <p class="campus-card-school">American Repertory Theater</p>
+                    </div>
+                </a>
+                <a href="#" class="campus-card">
+                    <div class="campus-card-img" style="background: linear-gradient(160deg, #b0c0a0 0%, #809070 100%);"></div>
+                    <div class="campus-card-body">
+                        <h4 class="campus-card-title">Student wellness research project</h4>
+                        <p class="campus-card-school">Harvard John A. Paulson School of Engineering and Applied Sciences</p>
+                    </div>
+                </a>
+                <a href="#" class="campus-card">
+                    <div class="campus-card-img" style="background: linear-gradient(160deg, #c0b0a0 0%, #907860 100%);"></div>
+                    <div class="campus-card-body">
+                        <h4 class="campus-card-title">Global Support Services travel mental health guide</h4>
+                        <p class="campus-card-school">Global Support Services</p>
+                    </div>
+                </a>
+                <a href="#" class="campus-card">
+                    <div class="campus-card-img" style="background: linear-gradient(160deg, #b0a0c0 0%, #806890 100%);"></div>
+                    <div class="campus-card-body">
+                        <h4 class="campus-card-title">Spiritual care and mental health offerings</h4>
+                        <p class="campus-card-school">Harvard Divinity School</p>
+                    </div>
+                </a>
+                <a href="#" class="campus-card">
+                    <div class="campus-card-img" style="background: linear-gradient(160deg, #a0c0b0 0%, #709080 100%);"></div>
+                    <div class="campus-card-body">
+                        <h4 class="campus-card-title">Mindfulness and wellness promotion</h4>
+                        <p class="campus-card-school">Harvard School of Dental Medicine</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Topics -->
+    <section class="section-related">
+        <div class="container">
+            <h2 class="section-heading text-white related-heading">Related topics</h2>
+            <div class="related-grid">
+                <a href="#" class="related-card">
+                    <div class="related-card-img" style="background: linear-gradient(160deg, #1b2d2d 0%, #0d1a1a 100%);"></div>
+                    <h4 class="related-card-title">Mindfulness &amp; Meditation</h4>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-card-img" style="background: linear-gradient(160deg, #2d1b2d 0%, #1a0d1a 100%);"></div>
+                    <h4 class="related-card-title">Happiness</h4>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-card-img" style="background: linear-gradient(160deg, #1b2d1b 0%, #0d1a0d 100%);"></div>
+                    <h4 class="related-card-title">Healthy Living</h4>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container footer-top-inner">
+                <a href="#" class="footer-logo">
+                    <svg class="harvard-shield-sm" viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 2 L58 14 L58 44 Q58 60 30 70 Q2 60 2 44 L2 14 Z" fill="#A51C30"/>
+                        <text x="30" y="28" fill="white" font-size="16" font-family="serif" font-weight="bold" text-anchor="middle">VE</text>
+                        <text x="30" y="46" fill="white" font-size="16" font-family="serif" font-weight="bold" text-anchor="middle">RI</text>
+                        <text x="30" y="62" fill="white" font-size="7" font-family="serif" text-anchor="middle">TAS</text>
+                    </svg>
+                    <span class="footer-logo-text">Harvard University</span>
+                </a>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="TikTok">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.78a8.18 8.18 0 004.78 1.53V6.85a4.84 4.84 0 01-1.01-.16z"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <div class="footer-links-group">
+                    <h5 class="footer-links-heading">Copyright &amp; Trademark</h5>
+                    <ul>
+                        <li><a href="#">Report Copyright Infringement</a></li>
+                        <li><a href="#">Report Security Issue</a></li>
+                        <li><a href="#">Trademark Notice</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h5 class="footer-links-heading">Website</h5>
+                    <ul>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Digital Accessibility Policy</a></li>
+                        <li><a href="#">Privacy Statement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h5 class="footer-links-heading">Get In Touch</h5>
+                    <ul>
+                        <li><a href="#">Contact Harvard</a></li>
+                        <li><a href="#">Maps &amp; Directions</a></li>
+                        <li><a href="#">Jobs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-copy">
+                    <p>Copyright &copy; 2026 The President and Fellows of Harvard College</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
